@@ -7,6 +7,7 @@
       "@store/*": ["src/store/*"],
       "@config/*": ["src/config/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@models/*": ["src/models/*"],
     }
   }
 }
