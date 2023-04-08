@@ -10,27 +10,20 @@ interface IUser {
 
 interface IUserState {
   user?: IUser;
-  isSubmitting: boolean;
 }
 
-const initialState: IUserState = {
-  isSubmitting: false,
-};
+const initialState: IUserState = {};
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login(state) {
-      state.isSubmitting = true;
-    },
-    loginSuccess(state, {payload}: PayloadAction<{user: IUser}>) {
-      state.isSubmitting = false;
+    login(state, {payload}: PayloadAction<{user: IUser}>) {
       state.user = payload.user;
     },
   },
 });
 
-export const {login, loginSuccess} = userSlice.actions;
+export const {login} = userSlice.actions;
 
 export default userSlice.reducer;
