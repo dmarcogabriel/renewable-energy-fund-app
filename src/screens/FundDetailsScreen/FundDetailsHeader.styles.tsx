@@ -17,4 +17,6 @@ export const TitleWrapper = styled.View`
 
 export const Title = styled(Text).attrs({variant: 'bodyLarge'})``;
 
-export const Subtitle = styled(Text).attrs({variant: 'bodySmall'})``;
+export const Subtitle = styled(Text).attrs({variant: 'bodySmall'})`
+  color: #808080;
+`;

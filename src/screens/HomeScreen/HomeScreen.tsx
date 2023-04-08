@@ -38,7 +38,7 @@ interface IFund {
 
 const MOCK_DATA: IFund[] = [
   {
-    id: 'wind-fund',
+    id: 'wfnd',
     kind: 'wind',
     iconName: 'Wind',
     amount: 1032.23,
@@ -47,7 +47,7 @@ const MOCK_DATA: IFund[] = [
     color: '#4A88D0',
   },
   {
-    id: 'solar-fund',
+    id: 'sfnd',
     kind: 'solar',
     iconName: 'Sun',
     amount: 986.61,
@@ -56,7 +56,7 @@ const MOCK_DATA: IFund[] = [
     color: '#EE8688',
   },
   {
-    id: 'nature-fund',
+    id: 'nfnd',
     kind: 'nature',
     iconName: 'Nature',
     amount: 986.61,
@@ -72,7 +72,7 @@ export const HomeScreen = ({navigation}: IProps) => {
       onPress={() =>
         navigation.navigate(HomeStack.FundDetails, {
           title: fund.title,
-          subtitle: 'wfnd',
+          subtitle: fund.id,
         })
       }>
       <Icon name={fund.iconName} color={fund.color} />

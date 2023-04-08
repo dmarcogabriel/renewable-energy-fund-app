@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, ListRenderItem} from 'react-native';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {LineChart} from 'react-native-svg-charts';
 import {FundDetailsHeader} from './FundDetailsHeader';
 import {
   Container,
@@ -23,6 +22,10 @@ import {
   AlertTextWrapper,
   BuyButton,
   FundBreakdownList,
+  Charts,
+  FundInfoAndStatsLeftCol,
+  SellButton,
+  RetireCreditsButton,
 } from './FundDetailsScreen.styles';
 import {IFundBreakdown} from '@models/IFundBreakdownInterface';
 import {FundBreakdownItem} from './FundBreakdownItem';
@@ -87,8 +90,7 @@ export const FundDetailsScreen = () => {
         <Row>{/* values */}</Row>
       </Container>
       <Content>
-        <LineChart
-          style={{height: 200}}
+        <Charts
           data={[50, 80, 23, 10, -7, 20, 15, 44, 98]}
           svg={{stroke: '#000', strokeWidth: 2}}
           contentInset={{top: 20, bottom: 20}}
@@ -104,7 +106,7 @@ export const FundDetailsScreen = () => {
           <Section>
             <SectionTitle>Info & Stats</SectionTitle>
             <FundInfoAndStatsWrapper>
-              <View>
+              <FundInfoAndStatsLeftCol>
                 <FundInfoAndStatsValue>
                   <FundInfoAndStatsValueText>
                     AUM <MCIcon name="alert-circle-outline" />
@@ -123,7 +125,7 @@ export const FundDetailsScreen = () => {
                   </FundInfoAndStatsValueText>
                   <FundInfoAndStatsKeyText>$17.68</FundInfoAndStatsKeyText>
                 </FundInfoAndStatsValue>
-              </View>
+              </FundInfoAndStatsLeftCol>
               <View>
                 <FundInfoAndStatsValue>
                   <FundInfoAndStatsValueText>
@@ -150,7 +152,7 @@ export const FundDetailsScreen = () => {
             <SectionTitle>Fund Breakdown</SectionTitle>
             <Row>
               <FundBreakdownTabOption isSelected>
-                <FundBreakdownTabOptionText>
+                <FundBreakdownTabOptionText isSelected>
                   Highlighted
                 </FundBreakdownTabOptionText>
               </FundBreakdownTabOption>
@@ -180,8 +182,14 @@ export const FundDetailsScreen = () => {
               <PortfolioValue>$328.14</PortfolioValue>
             </Row>
             <Row>
-              <PortfolioDescription>8.41%</PortfolioDescription>
-              <PortfolioDescription>Last purchase 28d ago</PortfolioDescription>
+              <PortfolioDescription color="#0FDF8F">8.41%</PortfolioDescription>
+              <PortfolioDescription color="#A0A0A0">
+                Last purchase 28d ago
+              </PortfolioDescription>
+            </Row>
+            <Row>
+              <SellButton>Sell</SellButton>
+              <RetireCreditsButton>Retire credits</RetireCreditsButton>
             </Row>
             <HintText>
               You've previously retired 28 credits of this asset
