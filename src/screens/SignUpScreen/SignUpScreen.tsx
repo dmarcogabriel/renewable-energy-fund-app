@@ -1,4 +1,6 @@
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   Header,
   Container,
@@ -7,8 +9,12 @@ import {
   LoginFormWrapper,
   HintText,
 } from './SignUpScreen.styles';
+import {AuthStack} from '@constants/RouteNames';
+import {AuthStackParamsList} from '@navigation/typings';
 
-export const SignUpScreen = () => {
+type IProps = NativeStackScreenProps<AuthStackParamsList, AuthStack.SignUp>;
+
+export const SignUpScreen = ({navigation}: IProps) => {
   return (
     <>
       <Header />
@@ -16,10 +22,12 @@ export const SignUpScreen = () => {
         <Title>Create your account</Title>
         <LoginFormWrapper>{/*  */}</LoginFormWrapper>
         <LoginButton>Create account</LoginButton>
-        <HintText>
-          {'Already have an account? '}
-          <HintText isLink>Log in Here</HintText>
-        </HintText>
+        <TouchableOpacity onPress={navigation.goBack}>
+          <HintText>
+            {'Already have an account? '}
+            <HintText isLink>Log in Here</HintText>
+          </HintText>
+        </TouchableOpacity>
       </Container>
     </>
   );
