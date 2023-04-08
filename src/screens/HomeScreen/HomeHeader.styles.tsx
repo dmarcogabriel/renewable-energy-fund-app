@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {Text as RNPText} from 'react-native-paper';
+import {Text as RNPText, Button} from 'react-native-paper';
 
 export const Container = styled.View`
   padding: 16px;
@@ -11,11 +11,12 @@ export const Container = styled.View`
 interface IRowProps {
   justifyContent?: string;
   marginVertical?: number;
+  alignItems?: string;
 }
 
 export const Row = styled.View<IRowProps>`
   flex-direction: row;
-  align-items: center;
+  align-items: ${({alignItems = 'center'}) => alignItems};
   justify-content: ${({justifyContent = 'space-between'}) => justifyContent};
   margin: ${({marginVertical = 0}) => marginVertical}px 0;
 `;
@@ -28,4 +29,16 @@ export const UserAvatarView = styled.View`
   background: #f4f4f4;
 `;
 
-export const Text = styled(RNPText)``;
+export const Text = styled(RNPText)<{bold?: boolean; color?: string}>`
+  ${({bold}) => bold && 'font-weight: bold;'}
+  color: ${({color = '#000000'}) => color};
+`;
+
+export const PortfolioAmount = styled(Text).attrs({bold: true})`
+  margin-right: 4px;
+`;
+
+export const RewardsButton = styled(Button)`
+  background: #f7efff;
+  border-radius: 4px;
+`;

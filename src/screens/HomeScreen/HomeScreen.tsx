@@ -1,16 +1,30 @@
 import React from 'react';
 import {ListRenderItem} from 'react-native';
-import {Card, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import {LineChart} from 'react-native-svg-charts';
 import {IIconName, Icon} from '@components/Icon';
 import CarbonCreditImg from '@assets/images/CarbonCredit.svg';
+import UpIcn from '@assets/icons/Up.svg';
+import DownIcn from '@assets/icons/Down.svg';
 import {HomeHeader} from './HomeHeader';
 import {
   Container,
   Title,
   FundsList,
   FundItemWrapper,
+  FundItemFooter,
+  FundPercentageWrapper,
+  FundPercentageText,
+  CarbonCreditCard,
+  CarbonCreditCardSubtitle,
+  CarbonCreditCardTitle,
+  CarbonCreditContent,
 } from './HomeScreen.styles';
+import {HomeStack} from '@constants/RouteNames';
+import {HomeStackParamsList} from '@navigation/typings';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+type IProps = NativeStackScreenProps<HomeStackParamsList, HomeStack.Home>;
 
 interface IFund {
   id: string;
@@ -38,7 +52,7 @@ const MOCK_DATA: IFund[] = [
     iconName: 'Sun',
     amount: 986.61,
     title: 'Solar Funds',
-    percent: 0.013,
+    percent: 0.0013,
     color: '#EE8688',
   },
   {
@@ -47,46 +61,63 @@ const MOCK_DATA: IFund[] = [
     iconName: 'Nature',
     amount: 986.61,
     title: 'Nature Funds',
-    percent: 0.013,
+    percent: -0.0132,
     color: '#0FDF8F',
   },
 ];
 
-export const HomeScreen = () => {
+export const HomeScreen = ({navigation}: IProps) => {
   const renderItem: ListRenderItem<IFund> = ({item: fund}) => (
-    <FundItemWrapper>
+    <FundItemWrapper
+      onPress={() =>
+        navigation.navigate(HomeStack.FundDetails, {
+          title: fund.title,
+          subtitle: 'wfnd',
+        })
+      }>
       <Icon name={fund.iconName} color={fund.color} />
-      <Text variant="titleLarge">{fund.title}</Text>
+      <Text variant="titleSmall">{fund.title}</Text>
       <LineChart
-        style={{height: 120}}
+        style={{height: 100}}
         data={[50, 80, 23, 10, -7, 20, 15, 44, 98]}
         svg={{stroke: fund.color, strokeWidth: 2}}
         contentInset={{top: 20, bottom: 20}}
       />
-      <Text variant="headlineSmall">{`$ ${fund.amount} ${
-        fund.percent * 100
-      }`}</Text>
+      <FundItemFooter>
+        <Text variant="titleMedium">${fund.amount}</Text>
+        <FundPercentageWrapper>
+          {fund.percent >= 0 ? <UpIcn /> : <DownIcn />}
+          <FundPercentageText
+            variant="titleMedium"
+            color={fund.percent >= 0 ? '#0FDF8F' : '#EE8688'}>
+            {fund.percent * 100}
+          </FundPercentageText>
+        </FundPercentageWrapper>
+      </FundItemFooter>
     </FundItemWrapper>
   );
-
-  const renderCarbonCredit = () => <CarbonCreditImg />;
 
   return (
     <>
       <HomeHeader />
       <Container>
         <Title>Funds</Title>
-        {/* Funds list here */}
         <FundsList
           data={MOCK_DATA}
           keyExtractor={({id}) => id}
           renderItem={renderItem}
         />
-        <Card.Title
-          title="Learn more about carbon credits"
-          subtitle="Check out our top tips!"
-          right={renderCarbonCredit}
-        />
+        <CarbonCreditCard>
+          <CarbonCreditContent>
+            <CarbonCreditCardTitle>
+              Learn more about carbon credits
+            </CarbonCreditCardTitle>
+            <CarbonCreditCardSubtitle>
+              Check out our top tips!
+            </CarbonCreditCardSubtitle>
+          </CarbonCreditContent>
+          <CarbonCreditImg />
+        </CarbonCreditCard>
       </Container>
     </>
   );
