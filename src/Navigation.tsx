@@ -15,21 +15,20 @@ const Stack = createNativeStackNavigator();
 export const Navigation = () => {
   const isLogged = true;
 
-  if (isLogged) {
-    return (
-      <NavigationContainer>
-        <Tab.Navigator>
+  return (
+    <NavigationContainer>
+      {isLogged ? (
+        <Tab.Navigator screenOptions={{headerShown: false}}>
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Trade" component={TradeScreen} />
           <Tab.Screen name="Portfolio" component={PortfolioScreen} />
         </Tab.Navigator>
-      </NavigationContainer>
-    );
-  }
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
-    </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+        </Stack.Navigator>
+      )}
+    </NavigationContainer>
   );
 };
