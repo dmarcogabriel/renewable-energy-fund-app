@@ -7,7 +7,8 @@ import {
   AuthStack as AuthStackNames,
   HomeStack as HomeStackNames,
 } from '@constants/RouteNames';
-
+import {useAppSelector} from '@hooks/useRedux';
+import {selectUserState} from '@store/user/userSelector';
 import {
   RootStackParamsList,
   AuthStackParamsList,
@@ -35,11 +36,11 @@ const HomeStackNavigator = () => (
 );
 
 export const Navigation = () => {
-  const isLogged = true;
+  const {user} = useAppSelector(selectUserState);
 
   return (
     <NavigationContainer>
-      {isLogged ? (
+      {user ? (
         <Tab.Navigator screenOptions={{headerShown: false}}>
           <Tab.Screen name={AppTab.Home} component={HomeStackNavigator} />
           <Tab.Screen name={AppTab.Trade} component={TradeScreen} />
