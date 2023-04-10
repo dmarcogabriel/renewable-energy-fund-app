@@ -41,7 +41,7 @@ import {useAppDispatch, useAppSelector} from '@hooks/useRedux';
 import {getFundDetails} from '@store/funds/fundsSlice';
 import {selectFunds} from '@store/funds/fundsSelectors';
 
-const CHART_OPTIONS: {id: string; label: string}[] = [
+const CHART_OPTIONS: {id: keyof IFundData; label: string}[] = [
   {
     id: 'hour',
     label: '1h',
@@ -65,6 +65,25 @@ const CHART_OPTIONS: {id: string; label: string}[] = [
   {
     id: 'all',
     label: 'All',
+  },
+];
+
+const BREAKDOWN_OPTIONS = [
+  {
+    id: 'highlighted',
+    label: 'Highlighted',
+  },
+  {
+    id: 'value',
+    label: 'Value',
+  },
+  {
+    id: 'vintage',
+    label: 'Vintage',
+  },
+  {
+    id: 'registry',
+    label: 'Registry',
   },
 ];
 
@@ -99,10 +118,17 @@ export const FundDetailsScreen = () => {
   const {fund, isLoading} = useAppSelector(selectFunds);
   const [selectedDateChart, setSelectedDateChart] =
     React.useState<keyof IFundData>('all');
+  const [selectedBreakdownId, setSelectedBreakdownId] = React.useState(
+    BREAKDOWN_OPTIONS[0].id,
+  );
 
   React.useEffect(() => {
     dispatch(getFundDetails({fundId: route.params.id}));
   }, [dispatch, route.params.id]);
+
+  const handleSelectChartOption = (optionId: keyof IFundData) => {
+    setSelectedDateChart(optionId);
+  };
 
   const renderItem: ListRenderItem<IFundBreakdown> = ({item: breakdown}) => (
     <FundBreakdownItem breakdown={breakdown} />
@@ -131,7 +157,10 @@ export const FundDetailsScreen = () => {
             <Container>
               <Row>
                 {CHART_OPTIONS.map(chartOption => (
-                  <ChartDisplayOption key={chartOption.id}>
+                  <ChartDisplayOption
+                    key={chartOption.id}
+                    onPress={() => handleSelectChartOption(chartOption.id)}
+                    isSelected={chartOption.id === selectedDateChart}>
                     {chartOption.label}
                   </ChartDisplayOption>
                 ))}
@@ -188,26 +217,19 @@ export const FundDetailsScreen = () => {
               <Section>
                 <SectionTitle>Fund Breakdown</SectionTitle>
                 <Row>
-                  <FundBreakdownTabOption isSelected>
-                    <FundBreakdownTabOptionText isSelected>
-                      Highlighted
-                    </FundBreakdownTabOptionText>
-                  </FundBreakdownTabOption>
-                  <FundBreakdownTabOption>
-                    <FundBreakdownTabOptionText>
-                      Value
-                    </FundBreakdownTabOptionText>
-                  </FundBreakdownTabOption>
-                  <FundBreakdownTabOption>
-                    <FundBreakdownTabOptionText>
-                      Vintage
-                    </FundBreakdownTabOptionText>
-                  </FundBreakdownTabOption>
-                  <FundBreakdownTabOption>
-                    <FundBreakdownTabOptionText>
-                      Registry
-                    </FundBreakdownTabOptionText>
-                  </FundBreakdownTabOption>
+                  {BREAKDOWN_OPTIONS.map(breakdownOption => (
+                    <FundBreakdownTabOption
+                      key={breakdownOption.id}
+                      isSelected={breakdownOption.id === selectedBreakdownId}
+                      onPress={() =>
+                        setSelectedBreakdownId(breakdownOption.id)
+                      }>
+                      <FundBreakdownTabOptionText
+                        isSelected={breakdownOption.id === selectedBreakdownId}>
+                        {breakdownOption.label}
+                      </FundBreakdownTabOptionText>
+                    </FundBreakdownTabOption>
+                  ))}
                 </Row>
                 <FundBreakdownList
                   horizontal

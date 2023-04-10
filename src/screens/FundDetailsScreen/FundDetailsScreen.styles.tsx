@@ -25,6 +25,7 @@ interface IChartDisplayOptionProps {
 
 export const ChartDisplayOption = styled(Button)<IChartDisplayOptionProps>`
   background: ${({isSelected}) => (isSelected ? '#F7EFFF' : 'transparent')};
+  border-radius: 4px;
 `;
 
 export const Section = styled.View``;
@@ -55,7 +56,7 @@ interface IFundBreakdownTabProps {
   isSelected?: boolean;
 }
 
-export const FundBreakdownTabOption = styled.View<IFundBreakdownTabProps>`
+export const FundBreakdownTabOption = styled.TouchableOpacity<IFundBreakdownTabProps>`
   ${({isSelected}) =>
     isSelected &&
     css`
@@ -86,11 +87,15 @@ export const PortfolioValue = styled(Text).attrs({variant: 'titleLarge'})`
 
 export const SellButton = styled(Button).attrs({mode: 'outlined'})`
   border-radius: 4px;
+  flex: 1;
+  margin: 0 8px;
 `;
 
 export const RetireCreditsButton = styled(Button).attrs({mode: 'contained'})`
   border-radius: 4px;
   background: #0fdf8f;
+  flex: 1;
+  margin: 0 8px;
 `;
 
 export const PortfolioDescription = styled(Text)<{color?: string}>`
