@@ -4,8 +4,6 @@ import type {PayloadAction} from '@reduxjs/toolkit';
 interface IUser {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
 }
 
 interface IUserState {

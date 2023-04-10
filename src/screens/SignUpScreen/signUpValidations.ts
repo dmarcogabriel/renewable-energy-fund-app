@@ -4,7 +4,7 @@ export const signUpSchema = yup.object({
   firstName: yup.string().defined(),
   lastName: yup.string().defined(),
   email: yup.string().email().defined(),
-  password: yup.string().min(6).defined(),
+  password: yup.string().min(8).defined(),
 });
 
 export interface ISignUpData extends yup.InferType<typeof signUpSchema> {}
