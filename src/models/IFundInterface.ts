@@ -1,5 +1,3 @@
-type IFundData = {[key: string]: number};
-
 interface IFundInfoAndStats {
   aum: number;
   vintageRange: {
@@ -12,17 +10,19 @@ interface IFundInfoAndStats {
   priceAtOpen: number;
 }
 
+export interface IFundData {
+  hour: number[];
+  day: number[];
+  week: number[];
+  month: number[];
+  year: number[];
+  all: number[];
+}
+
 export interface IFund {
   totalAmount: number;
   year: number;
   earningsPercentage: number;
-  data: {
-    hour: IFundData[];
-    day: IFundData[];
-    week: IFundData[];
-    month: IFundData[];
-    year: IFundData[];
-    all: IFundData[];
-  };
+  data: IFundData;
   infoAndStats: IFundInfoAndStats;
 }

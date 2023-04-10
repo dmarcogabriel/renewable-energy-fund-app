@@ -72,7 +72,7 @@ export const HomeScreen = ({navigation}: IProps) => {
       onPress={() =>
         navigation.navigate(HomeStack.FundDetails, {
           title: fund.title,
-          subtitle: fund.id,
+          id: fund.id,
         })
       }>
       <Icon name={fund.iconName} color={fund.color} />

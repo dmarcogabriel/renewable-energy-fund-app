@@ -13,5 +13,5 @@ export type AuthStackParamsList = {
 
 export type HomeStackParamsList = {
   [HomeStack.Home]: undefined;
-  [HomeStack.FundDetails]: {title: string; subtitle: string};
+  [HomeStack.FundDetails]: {title: string; id: string};
 };
