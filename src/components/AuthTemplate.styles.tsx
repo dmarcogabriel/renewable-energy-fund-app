@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import {Text, Button, TextInput as RNPTextInput} from 'react-native-paper';
 
 export const Header = styled.View`
@@ -20,7 +20,7 @@ export const Title = styled(Text).attrs({variant: 'titleLarge'})`
   font-weight: bold;
 `;
 
-export const LoginFormWrapper = styled.View``;
+export const AuthFormWrapper = styled.View``;
 
 export const TextInput = styled(RNPTextInput).attrs({
   textColor: '#000000',
@@ -32,13 +32,19 @@ export const TextInput = styled(RNPTextInput).attrs({
   margin: 8px 0;
 `;
 
-export const LoginButton = styled(Button).attrs({mode: 'contained'})`
+export const AuthButton = styled(Button).attrs({mode: 'contained'})`
   border-radius: 4px;
   margin-top: 30px;
 `;
 
-export const HintText = styled(Text)`
+export const HintText = styled(Text)<{isLink?: boolean}>`
   align-self: center;
   margin-top: 12px;
   color: #a0a0a0;
+  ${({isLink}) =>
+    isLink &&
+    css`
+      color: #000000;
+      text-decoration: underline;
+    `};
 `;

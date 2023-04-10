@@ -6,12 +6,12 @@ import {login} from '@store/user/userSlice';
 import {
   Header,
   Container,
-  LoginButton,
+  AuthButton,
   Title,
-  LoginFormWrapper,
+  AuthFormWrapper,
   HintText,
   TextInput,
-} from './LoginScreen.styles';
+} from '@components/AuthTemplate.styles';
 import {AuthStack} from '@constants/RouteNames';
 import {AuthStackParamsList} from '@navigation/typings';
 
@@ -40,7 +40,7 @@ export const LoginScreen = ({navigation}: IProps) => {
       <Header />
       <Container>
         <Title>Login</Title>
-        <LoginFormWrapper>
+        <AuthFormWrapper>
           <TextInput label="E-mail" onChangeText={setEmail} />
           <TextInput
             label="Password"
@@ -48,8 +48,8 @@ export const LoginScreen = ({navigation}: IProps) => {
             secureTextEntry
             onChangeText={setPassword}
           />
-        </LoginFormWrapper>
-        <LoginButton onPress={handleLogin}>Login</LoginButton>
+        </AuthFormWrapper>
+        <AuthButton onPress={handleLogin}>Login</AuthButton>
         <TouchableOpacity onPress={() => navigation.navigate(AuthStack.SignUp)}>
           <HintText>Don't have an account? Sign up here</HintText>
         </TouchableOpacity>

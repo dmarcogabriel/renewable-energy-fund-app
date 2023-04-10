@@ -1,25 +1,12 @@
-import styled, {css} from 'styled-components/native';
-import {Text, Button} from 'react-native-paper';
+import styled from 'styled-components/native';
+import {Header as AuthHeader} from '@components/AuthTemplate.styles';
 
-export const Header = styled.View``;
-
-export const Container = styled.View``;
-
-export const Title = styled(Text)``;
-
-export const LoginFormWrapper = styled.View``;
-
-export const LoginButton = styled(Button).attrs({mode: 'contained'})`
-  border-radius: 4px;
+export const Header = styled(AuthHeader)`
+  height: 75px;
 `;
 
-export const HintText = styled(Text)<{isLink?: boolean}>`
-  color: #a0a0a0;
-  align-self: center;
-  ${({isLink}) =>
-    isLink &&
-    css`
-      color: #000000;
-      text-decoration: underline;
-    `};
+export const TermsInputWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
 `;
