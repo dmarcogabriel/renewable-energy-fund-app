@@ -2,38 +2,10 @@ import React from 'react';
 import {View, ListRenderItem, ActivityIndicator} from 'react-native';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RouteProp, useRoute, useNavigation} from '@react-navigation/native';
-import {
-  Container,
-  Content,
-  Row,
-  ChartDisplayOption,
-  SectionTitle,
-  FundInfoAndStatsWrapper,
-  FundInfoAndStatsValue,
-  FundInfoAndStatsKeyText,
-  FundInfoAndStatsValueText,
-  FundBreakdownTabOption,
-  FundBreakdownTabOptionText,
-  PortfolioTitle,
-  PortfolioValue,
-  PortfolioDescription,
-  HintText,
-  Section,
-  AlertTextWrapper,
-  BuyButton,
-  FundBreakdownList,
-  Charts,
-  FundInfoAndStatsLeftCol,
-  SellButton,
-  RetireCreditsButton,
-} from './FundDetailsScreen.styles';
+import * as S from './FundDetailsScreen.styles';
 import {IFundBreakdown} from '@models/IFundBreakdownInterface';
 import {IFundData} from '@models/IFundInterface';
 import {FundBreakdownItem} from './FundBreakdownItem';
-import AspiraDACCoverImg from '@assets/images/breakdowns/aspiradac_cover.png';
-import AspiraDACLogoImg from '@assets/images/breakdowns/aspiradac_logo.png';
-import ClimateworksCoverImg from '@assets/images/breakdowns/climateworks_cover.png';
-import ClimateworksLogoImg from '@assets/images/breakdowns/climateworks_logo.png';
 import {Header} from '@components/Header';
 import {HomeStackParamsList} from '@navigation/typings';
 import {HomeStack} from '@constants/RouteNames';
@@ -90,15 +62,15 @@ const BREAKDOWN_OPTIONS = [
 const MOCK_FUND_BREAKDOWN: IFundBreakdown[] = [
   {
     id: 'br1',
-    cover: AspiraDACCoverImg,
-    logo: AspiraDACLogoImg,
+    cover: require('@assets/images/breakdowns/aspiradac_cover.png'),
+    logo: require('@assets/images/breakdowns/aspiradac_logo.png'),
     description:
       'Aspira is building a modular, direct air capture system with the energy supply integrated into the modules.',
   },
   {
     id: 'br2',
-    cover: ClimateworksCoverImg,
-    logo: ClimateworksLogoImg,
+    cover: require('@assets/images/breakdowns/climateworks_cover.png'),
+    logo: require('@assets/images/breakdowns/climateworks_logo.png'),
     description:
       'uses renewable geothermal energy and waste heat to capture CO₂ directly from the air.',
   },
@@ -145,132 +117,132 @@ export const FundDetailsScreen = () => {
         <ActivityIndicator />
       ) : (
         <>
-          <Container>
-            <Row>{/* values */}</Row>
-          </Container>
-          <Content>
-            <Charts
-              data={fund?.data[selectedDateChart]!}
+          <S.Container>
+            <S.Row>{/* values */}</S.Row>
+          </S.Container>
+          <S.Content>
+            <S.Charts
+              data={fund?.data[selectedDateChart] || []}
               svg={{stroke: PRODUCTS_COLOR[route.params.id], strokeWidth: 2}}
               contentInset={{top: 20, bottom: 20}}
             />
-            <Container>
-              <Row>
+            <S.Container>
+              <S.Row>
                 {CHART_OPTIONS.map(chartOption => (
-                  <ChartDisplayOption
+                  <S.ChartDisplayOption
                     key={chartOption.id}
                     onPress={() => handleSelectChartOption(chartOption.id)}
                     isSelected={chartOption.id === selectedDateChart}>
                     {chartOption.label}
-                  </ChartDisplayOption>
+                  </S.ChartDisplayOption>
                 ))}
-              </Row>
-              <Section>
-                <SectionTitle>Info & Stats</SectionTitle>
-                <FundInfoAndStatsWrapper>
-                  <FundInfoAndStatsLeftCol>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+              </S.Row>
+              <S.Section>
+                <S.SectionTitle>Info & Stats</S.SectionTitle>
+                <S.FundInfoAndStatsWrapper>
+                  <S.FundInfoAndStatsLeftCol>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         AUM <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.aum}m`}</FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.aum}m`}</S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         Vintage Range <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>
                         {`${fund?.infoAndStats.vintageRange.min} - ${fund?.infoAndStats.vintageRange.max}`}
-                      </FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+                      </S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         Price at Close <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.priceAtClose}`}</FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
-                  </FundInfoAndStatsLeftCol>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.priceAtClose}`}</S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
+                  </S.FundInfoAndStatsLeftCol>
                   <View>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         Issue Date <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>
                         {fund?.infoAndStats.issueDate}
-                      </FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+                      </S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         TER <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>{`${fund?.infoAndStats.ter}%`}</FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
-                    <FundInfoAndStatsValue>
-                      <FundInfoAndStatsValueText>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>{`${fund?.infoAndStats.ter}%`}</S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
+                    <S.FundInfoAndStatsValue>
+                      <S.FundInfoAndStatsValueText>
                         Price at Open <MCIcon name="alert-circle-outline" />
-                      </FundInfoAndStatsValueText>
-                      <FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.priceAtOpen}`}</FundInfoAndStatsKeyText>
-                    </FundInfoAndStatsValue>
+                      </S.FundInfoAndStatsValueText>
+                      <S.FundInfoAndStatsKeyText>{`$${fund?.infoAndStats.priceAtOpen}`}</S.FundInfoAndStatsKeyText>
+                    </S.FundInfoAndStatsValue>
                   </View>
-                </FundInfoAndStatsWrapper>
-              </Section>
-              <Section>
-                <SectionTitle>Fund Breakdown</SectionTitle>
-                <Row>
+                </S.FundInfoAndStatsWrapper>
+              </S.Section>
+              <S.Section>
+                <S.SectionTitle>Fund Breakdown</S.SectionTitle>
+                <S.Row>
                   {BREAKDOWN_OPTIONS.map(breakdownOption => (
-                    <FundBreakdownTabOption
+                    <S.FundBreakdownTabOption
                       key={breakdownOption.id}
                       isSelected={breakdownOption.id === selectedBreakdownId}
                       onPress={() =>
                         setSelectedBreakdownId(breakdownOption.id)
                       }>
-                      <FundBreakdownTabOptionText
+                      <S.FundBreakdownTabOptionText
                         isSelected={breakdownOption.id === selectedBreakdownId}>
                         {breakdownOption.label}
-                      </FundBreakdownTabOptionText>
-                    </FundBreakdownTabOption>
+                      </S.FundBreakdownTabOptionText>
+                    </S.FundBreakdownTabOption>
                   ))}
-                </Row>
-                <FundBreakdownList
+                </S.Row>
+                <S.FundBreakdownList
                   horizontal
                   data={MOCK_FUND_BREAKDOWN}
                   keyExtractor={breakdown => breakdown.id}
                   renderItem={renderItem}
                 />
-              </Section>
-              <Section>
-                <PortfolioTitle>Your Portfolio</PortfolioTitle>
-                <Row>
-                  <PortfolioValue>18 Credits</PortfolioValue>
-                  <PortfolioValue>$328.14</PortfolioValue>
-                </Row>
-                <Row>
-                  <PortfolioDescription color="#0FDF8F">
+              </S.Section>
+              <S.Section>
+                <S.PortfolioTitle>Your Portfolio</S.PortfolioTitle>
+                <S.Row>
+                  <S.PortfolioValue>18 Credits</S.PortfolioValue>
+                  <S.PortfolioValue>$328.14</S.PortfolioValue>
+                </S.Row>
+                <S.Row>
+                  <S.PortfolioDescription color="#0FDF8F">
                     8.41%
-                  </PortfolioDescription>
-                  <PortfolioDescription color="#A0A0A0">
+                  </S.PortfolioDescription>
+                  <S.PortfolioDescription color="#A0A0A0">
                     Last purchase 28d ago
-                  </PortfolioDescription>
-                </Row>
-                <Row>
-                  <SellButton>Sell</SellButton>
-                  <RetireCreditsButton>Retire credits</RetireCreditsButton>
-                </Row>
-                <HintText>
+                  </S.PortfolioDescription>
+                </S.Row>
+                <S.Row>
+                  <S.SellButton>Sell</S.SellButton>
+                  <S.RetireCreditsButton>Retire credits</S.RetireCreditsButton>
+                </S.Row>
+                <S.HintText>
                   You've previously retired 28 credits of this asset
-                </HintText>
-              </Section>
-              <AlertTextWrapper>
-                <HintText>
+                </S.HintText>
+              </S.Section>
+              <S.AlertTextWrapper>
+                <S.HintText>
                   Please note that prices are for reference only and may vary at
                   the time of excecuting a buy or sell order. The information
                   provided is not investment advice, and should not be used as a
                   recommendation to buy or sell assets.
-                </HintText>
-              </AlertTextWrapper>
-              <BuyButton mode="contained">Buy</BuyButton>
-            </Container>
-          </Content>
+                </S.HintText>
+              </S.AlertTextWrapper>
+              <S.BuyButton mode="contained">Buy</S.BuyButton>
+            </S.Container>
+          </S.Content>
         </>
       )}
     </>

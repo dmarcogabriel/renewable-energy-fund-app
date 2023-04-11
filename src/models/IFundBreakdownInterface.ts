@@ -1,6 +1,8 @@
+import {ImageSourcePropType} from 'react-native';
+
 export interface IFundBreakdown {
   id: string;
-  cover: number;
-  logo: number;
+  cover: ImageSourcePropType;
+  logo: ImageSourcePropType;
   description: string;
 }
