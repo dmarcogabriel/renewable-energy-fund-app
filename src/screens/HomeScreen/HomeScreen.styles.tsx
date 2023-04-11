@@ -1,6 +1,7 @@
 import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
 import {Text} from 'react-native-paper';
+import {LineChart} from 'react-native-svg-charts';
 
 export const Container = styled.View`
   padding: 20px;
@@ -31,6 +32,10 @@ export const FundPercentageWrapper = styled.View`
   margin-left: 4px;
   flex-direction: row;
   align-items: center;
+`;
+
+export const FundChart = styled(LineChart)`
+  height: 100px;
 `;
 
 interface IFundPercentageTextProps {

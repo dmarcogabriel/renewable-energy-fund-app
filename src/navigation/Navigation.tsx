@@ -14,6 +14,9 @@ import {
   AuthStackParamsList,
   HomeStackParamsList,
 } from './typings';
+import HomeIcn from '@assets/icons/Home.svg';
+import TradeIcn from '@assets/icons/Trade.svg';
+import PortfolioIcn from '@assets/icons/Portfolio.svg';
 import {HomeScreen} from '../screens/HomeScreen';
 import {TradeScreen} from '../screens/TradeScreen';
 import {PortfolioScreen} from '../screens/PortfolioScreen';
@@ -24,6 +27,9 @@ import {FundDetailsScreen} from '../screens/FundDetailsScreen';
 const Tab = createBottomTabNavigator<RootStackParamsList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamsList>();
 const HomeStack = createNativeStackNavigator<HomeStackParamsList>();
+
+const FOCUSED_COLOR = '#770FDF';
+const UNFOCUSED_COLOR = '#000000';
 
 const HomeStackNavigator = () => (
   <HomeStack.Navigator screenOptions={{headerShown: false}}>
@@ -41,7 +47,35 @@ export const Navigation = () => {
   return (
     <NavigationContainer>
       {user ? (
-        <Tab.Navigator screenOptions={{headerShown: false}}>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            headerShown: false,
+            tabBarIcon: ({focused}) => {
+              let IconComponent;
+
+              switch (route.name) {
+                case AppTab.Home: {
+                  IconComponent = HomeIcn;
+                  break;
+                }
+                case AppTab.Portfolio: {
+                  IconComponent = PortfolioIcn;
+                  break;
+                }
+                case AppTab.Trade: {
+                  IconComponent = TradeIcn;
+                }
+              }
+
+              return (
+                <IconComponent
+                  color={focused ? FOCUSED_COLOR : UNFOCUSED_COLOR}
+                />
+              );
+            },
+            tabBarActiveTintColor: FOCUSED_COLOR,
+            tabBarInactiveTintColor: UNFOCUSED_COLOR,
+          })}>
           <Tab.Screen name={AppTab.Home} component={HomeStackNavigator} />
           <Tab.Screen name={AppTab.Trade} component={TradeScreen} />
           <Tab.Screen name={AppTab.Portfolio} component={PortfolioScreen} />
